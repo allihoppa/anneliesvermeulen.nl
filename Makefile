@@ -5,4 +5,5 @@ docker/service/web/dist/.built: public/*
 
 .PHONY: up
 up: docker/service/web/dist/.built
-	docker run --rm --name anneliesvermeulen.nl -v $(pwd)/public:/usr/share/nginx/html -p 1090:80 allihoppa/anneliesvermeulen.nl
+	set -x
+	docker run --rm --name anneliesvermeulen.nl -v $(shell pwd)/public:/usr/share/nginx/html -p 1090:80 allihoppa/anneliesvermeulen.nl
