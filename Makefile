@@ -4,4 +4,4 @@ dist:
 
 .PHONY: up
 up:
-	docker run --rm --name anneliesvermeulen.nl -p 1090:80 allihoppa/anneliesvermeulen.nl
+	docker run --rm --name anneliesvermeulen.nl -v $(pwd)/public:/usr/share/nginx/html -p 1090:80 allihoppa/anneliesvermeulen.nl
