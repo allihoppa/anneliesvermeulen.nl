@@ -2,6 +2,7 @@ services:
   - docker
 
 before_script:
+  - ls -lash ~/.ssh/
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
 script:
