@@ -7,8 +7,12 @@ export DOCKER_IMAGE_AND_TAG := $(DOCKER_IMAGE):$(DOCKER_DEPLOY_TAG)
 
 all: docker/service/web/dist/.built publish
 
-docker/service/web/dist/.built: public/*
-	docker build -t $(DOCKER_IMAGE_AND_TAG) -f docker/service/web/dist/Dockerfile .
+docker/service/web/dist/.built: \
+	docker/service/web/dist/Dockerfile
+	docker build \
+		-f docker/service/web/dist/Dockerfile \
+		-t $(DOCKER_IMAGE):latest \
+		.
 	touch $@
 
 .PHONY: up
@@ -18,5 +22,7 @@ up: docker/service/web/dist/.built
 		up
 
 .PHONY: latest
-publish:
+publish: docker/service/web/dist/.built
+	docker tag $(DOCKER_IMAGE):latest $(DOCKER_IMAGE_AND_TAG)
+	docker push $(DOCKER_IMAGE):latest
 	docker push $(DOCKER_IMAGE_AND_TAG)
