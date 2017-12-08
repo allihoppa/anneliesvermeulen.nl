@@ -14,7 +14,7 @@ DOCKER_DEPLOY_PORT=12374
 
 .DEFAULT_GOAL: build
 build: \
-	docker/service/web/dist/.built
+	docker/service/web/dist/.built \
 	test
 
 docker/service/web/dist/.built: \
