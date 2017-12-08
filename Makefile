@@ -8,7 +8,8 @@ export DOCKER_IMAGE_AND_TAG := $(DOCKER_IMAGE):$(DOCKER_DEPLOY_TAG)
 all: docker/service/web/dist/.built publish
 
 docker/service/web/dist/.built: \
-	docker/service/web/dist/Dockerfile
+	docker/service/web/dist/Dockerfile \
+	$(shell find public/)
 	docker build \
 		-f docker/service/web/dist/Dockerfile \
 		-t $(DOCKER_IMAGE):latest \
