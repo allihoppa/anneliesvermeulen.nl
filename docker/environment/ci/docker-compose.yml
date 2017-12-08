@@ -1,0 +1,6 @@
+version: '3'
+
+services:
+  web:
+    container_name: anneliesvermeulen-nl-web-ci
+    image: $DOCKER_IMAGE_AND_TAG

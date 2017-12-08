@@ -3,6 +3,7 @@ DOCKER_IMAGE := allihoppa/anneliesvermeulen-nl-web
 DOCKER_SWARM_HOST=lucasvanlierop-website
 DOCKER_SWARM_STACK=anneliesvermeulen-website
 DOCKER_COMPOSE_FILE_PROD=docker/environment/production/docker-compose.yml
+DOCKER_COMPOSE_FILE_CI=docker/environment/ci/docker-compose.yml
 DOCKER_DEPLOY_USER=deploy
 DOCKER_DEPLOY_TAG=$(shell git show -s --format="%cI-%h" | sed -e 's/[:+]/-/g')
 export DOCKER_IMAGE_AND_TAG := $(DOCKER_IMAGE):$(DOCKER_DEPLOY_TAG)
@@ -12,7 +13,10 @@ DOCKER_DEPLOY_PORT=12374
 
 .DEFAULT_GOAL: build
 
-build: docker/service/web/dist/.built
+build: \
+	docker/service/web/dist/.built
+	test
+
 
 docker/service/web/dist/.built: \
 	docker/service/web/dist/Dockerfile \
@@ -32,6 +36,13 @@ up: docker-tag
 .PHONY: docker-tag
 docker-tag: docker/service/web/dist/.built
 	docker tag $(DOCKER_IMAGE):latest $(DOCKER_IMAGE_AND_TAG)
+
+
+.PHONY: test
+test: docker-tag
+	docker-compose -f $(DOCKER_COMPOSE_FILE_CI) up -d
+	tests/smoke-test.sh
+	docker-compose -f $(DOCKER_COMPOSE_FILE_CI) stop
 
 .PHONY: latest
 publish: docker-tag
