@@ -7,3 +7,10 @@ before_script:
 
 script:
   - make
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: make publish
+    on:
+      branch: master
