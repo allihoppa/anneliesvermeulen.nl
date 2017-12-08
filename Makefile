@@ -17,7 +17,6 @@ build: \
 	docker/service/web/dist/.built
 	test
 
-
 docker/service/web/dist/.built: \
 	docker/service/web/dist/Dockerfile \
 	$(shell find public/)
@@ -42,6 +41,7 @@ docker-tag: docker/service/web/dist/.built
 test: docker-tag
 	docker-compose -f $(DOCKER_COMPOSE_FILE_CI) up -d
 	tests/smoke-test.sh
+	tests/validate-html.sh
 	docker-compose -f $(DOCKER_COMPOSE_FILE_CI) stop
 
 .PHONY: latest
