@@ -24,14 +24,18 @@ docker/service/web/dist/.built: \
 	touch $@
 
 .PHONY: up
-up: docker/service/web/dist/.built
+up: docker-tag
 	docker-compose \
 		-f docker/environment/development/docker-compose.yml \
 		up
 
-.PHONY: latest
-publish: docker/service/web/dist/.built
+.PHONY: docker-tag
+docker-tag: docker/service/web/dist/.built
 	docker tag $(DOCKER_IMAGE):latest $(DOCKER_IMAGE_AND_TAG)
+
+.PHONY: latest
+publish: docker-tag
+
 	docker push $(DOCKER_IMAGE):latest
 	docker push $(DOCKER_IMAGE_AND_TAG)
 
