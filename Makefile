@@ -2,6 +2,7 @@
 DOCKER_IMAGE := allihoppa/anneliesvermeulen-nl-web
 DOCKER_SWARM_HOST=lucasvanlierop-website
 DOCKER_SWARM_STACK=anneliesvermeulen-website
+export COMPOSE_PROJECT_NAME=anneliesvermeulen-website
 DOCKER_COMPOSE_FILE_PROD=docker/environment/production/docker-compose.yml
 DOCKER_COMPOSE_FILE_CI=docker/environment/ci/docker-compose.yml
 DOCKER_DEPLOY_USER=deploy
@@ -12,7 +13,6 @@ DOCKER_DEPLOY_SSH_TUNNEL=docker_manager_ssh_tunnel
 DOCKER_DEPLOY_PORT=12374
 
 .DEFAULT_GOAL: build
-
 build: \
 	docker/service/web/dist/.built
 	test
