@@ -6,7 +6,7 @@ before_script:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
 script:
-  - make
+  - make build
 
 deploy:
   - provider: script

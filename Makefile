@@ -3,9 +3,9 @@ DOCKER_IMAGE := allihoppa/anneliesvermeulen-nl-web
 DOCKER_DEPLOY_TAG=$(shell git show -s --format="%cI-%h" | sed -e 's/[:+]/-/g')
 export DOCKER_IMAGE_AND_TAG := $(DOCKER_IMAGE):$(DOCKER_DEPLOY_TAG)
 
-.DEFAULT_GOAL: all
+.DEFAULT_GOAL: build
 
-all: docker/service/web/dist/.built publish
+build: docker/service/web/dist/.built
 
 docker/service/web/dist/.built: \
 	docker/service/web/dist/Dockerfile \
