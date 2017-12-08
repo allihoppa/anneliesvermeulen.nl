@@ -1,6 +1,7 @@
-DOCKER_DEPLOY_TAG=$(shell git show -s --format="%cI-%h" | sed -e 's/[:+]/-/g')
+
 DOCKER_IMAGE := allihoppa/anneliesvermeulen-nl-web
-DOCKER_IMAGE_AND_TAG := $(DOCKER_IMAGE):$(DOCKER_DEPLOY_TAG)
+DOCKER_DEPLOY_TAG=$(shell git show -s --format="%cI-%h" | sed -e 's/[:+]/-/g')
+export DOCKER_IMAGE_AND_TAG := $(DOCKER_IMAGE):$(DOCKER_DEPLOY_TAG)
 
 .DEFAULT_GOAL: all
 
@@ -12,8 +13,9 @@ docker/service/web/dist/.built: public/*
 
 .PHONY: up
 up: docker/service/web/dist/.built
-	set -x
-	docker run --rm --name anneliesvermeulen-nl-web-dev -v $(shell pwd)/public:/usr/share/nginx/html -p 1090:80 $(DOCKER_IMAGE_AND_TAG)
+	docker-compose \
+		-f docker/environment/development/docker-compose.yml \
+		up
 
 .PHONY: latest
 publish:

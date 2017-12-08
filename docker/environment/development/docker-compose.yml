@@ -1,0 +1,21 @@
+version: "2"
+
+networks:
+  traefik:
+    external:
+      name: traefik_webgateway
+
+services:
+  web:
+    container_name: anneliesvermeulen-nl-web-dev
+    image: $DOCKER_IMAGE_AND_TAG
+    volumes:
+      - ../../../public:/usr/share/nginx/html
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=anneliesvermeulen-web"
+      - "traefik.frontend.rule=Host:anneliesvermeulen.nl.localhost"
+      - "traefik.port=80"
+      - "traefik.docker.network=traefik_webgateway"
