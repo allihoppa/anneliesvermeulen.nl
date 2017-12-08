@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+DOCKER_HOST_PORT=$1
+
+until docker -H ${DOCKER_HOST_PORT} version --format '{{.Server.Version}}' 2>/dev/null; do
+    >&2 echo "Waiting for docker tunnel"
+    sleep 1
+done

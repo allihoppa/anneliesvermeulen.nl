@@ -1,0 +1,18 @@
+version: '3'
+
+networks:
+  traefik:
+    external:
+      name: lucasvanlierop-website_default
+
+services:
+  web:
+    image: $DOCKER_IMAGE_AND_TAG
+    networks:
+      traefik:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=anneliesvermeulen-web"
+      - "traefik.frontend.rule=Host:anneliesvermeulen.nl,www.anneliesvermeulen.nl"
+      - "traefik.port=80"
+      - "traefik.docker.network=anneliesvermeulen-website_default"
