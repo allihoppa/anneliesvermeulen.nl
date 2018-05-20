@@ -28,7 +28,3 @@ assert_valid_html() {
 }
 
 assert_valid_html 'http://web'
-assert_valid_html 'http://web/contact/'
-assert_valid_html 'http://web/diensten/'
-assert_valid_html 'http://web/over-tekstschrijver-annelies-vermeulen/'
-assert_valid_html 'http://web/projecten/'

@@ -20,7 +20,3 @@ assert_page_contains() {
 }
 
 assert_page_contains "http://web" "Schrijven en corrigeren"
-assert_page_contains "http://web/contact/" "Laten we kennismaken!"
-assert_page_contains "http://web/diensten/" "Diensten"
-assert_page_contains "http://web/over-tekstschrijver-annelies-vermeulen/" "allround contentspecialist"
-assert_page_contains "http://web/projecten/" "Als contentspecialist"
