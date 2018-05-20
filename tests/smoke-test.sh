@@ -19,4 +19,4 @@ assert_page_contains() {
 
 }
 
-assert_page_contains "http://web" "Schrijven en corrigeren"
+assert_page_contains "http://web" "Ik schrijf prikkelende teksten voor websites"
